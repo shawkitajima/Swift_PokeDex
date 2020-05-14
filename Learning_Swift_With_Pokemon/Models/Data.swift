@@ -11,6 +11,7 @@ import SwiftUI
 import CoreLocation
 
 let pokemonData: [Pokemon] = load("pokedex.json")
+let descriptionData: [Description] = load("pokemon-v1.json")
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data

@@ -10,16 +10,26 @@ import SwiftUI
 
 struct PokemonDetail: View {
     var pokemon: Pokemon
+    var description: Description
+    
+    func first_half(_ input: String) -> String {
+        let first_half = input.prefix(input.count / 2)
+        return String(first_half)
+    }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 21.0) {
+        VStack(alignment: .center, spacing: 25.0) {
             VStack(alignment: .center) {
                 PokemonImage(image: pokemon.image)
-                Text("Pokemon Id: \(pokemon.id)")
-                Text("Japanese name: \(pokemon.name["japanese"]!)")
-                Text("English name: \(pokemon.name["english"]!)")
+                Text("Id: \(pokemon.id)")
+                Text(pokemon.name["japanese"]!)
+                    .font(.headline)
+                    .fontWeight(.heavy)
+                Text(pokemon.name["english"]!)
+                    .font(.headline)
+                    .fontWeight(.bold)
             }
-            HStack(alignment: .top, spacing: 50.0) {
+            HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text("Types:")
                         .font(.headline)
@@ -29,7 +39,9 @@ struct PokemonDetail: View {
                             .multilineTextAlignment(.leading)
                     }
                 }
-                VStack(alignment: .leading) {
+                .padding(.leading)
+                Spacer()
+                VStack(alignment: .trailing) {
                     Text("Base Stats:")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
@@ -39,20 +51,24 @@ struct PokemonDetail: View {
                     }
                 }
             }
+                .padding([.top, .leading, .trailing])
+            Text(first_half(description.description))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
             Spacer()
         }
+        .padding(0.0)
+        .frame(width: nil)
+        .navigationBarTitle(Text(pokemon.name["japanese"]!), displayMode: .inline)
     }
 }
 
 struct PokemonDetail_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetail(pokemon: pokemonData[0])
+        PokemonDetail(
+            pokemon: pokemonData[0],
+            description: descriptionData[0]
+        )
+            .padding(.top)
     }
 }
-
-//"HP": 45,
-//"Attack": 49,
-//"Defense": 49,
-//"Sp. Attack": 65,
-//"Sp. Defense": 65,
-//"Speed": 45
