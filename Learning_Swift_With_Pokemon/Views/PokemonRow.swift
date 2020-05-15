@@ -13,7 +13,9 @@ struct PokemonRow: View {
     var body: some View {
         HStack {
             PokemonImage(image: pokemon.image)
+                .padding(.trailing)
             Text(pokemon.name["japanese"]!)
+                .padding(.leading)
         }
     }
 }
